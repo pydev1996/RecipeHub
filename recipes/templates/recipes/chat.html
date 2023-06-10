@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .chat-window {
+            height: 400px;
+            overflow-y: scroll;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        .message {
+            margin-bottom: 10px;
+        }
+
+        .message .sender {
+            font-weight: bold;
+        }
+
+        .input-container {
+            margin-top: 20px;
+        }
+
+        .message-input {
+            padding: 10px;
+            width: 300px;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .send-button {
+            padding: 10px 15px;
+            background-color: #333333;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .send-button:hover {
+            background-color: #22a5f1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Chat</h1>
+        <div class="chat-window">
+            <!-- Display chat messages here -->
+            {% for message in chat_messages %}
+                <div class="message">
+                    <span class="sender">{{ message.sender.username }}:</span>
+                    <div class="message-body">{{ message.body }}</div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="input-container">
+            <input type="text" class="message-input" id="message-input" placeholder="Type your message">
+            <button class="send-button" id="send-button">Send</button>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript code for sending and receiving messages
+
+        // Get the necessary elements from the DOM
+        const messageInput = document.getElementById('message-input');
+        const sendButton = document.getElementById('send-button');
+        const chatWindow = document.querySelector('.chat-window');
+
+        // Function to handle sending a message
+        function sendMessage() {
+            const message = messageInput.value.trim();
+
+            if (message !== '') {
+                // Create a new chat message element
+                const newMessage = document.createElement('div');
+                newMessage.classList.add('message');
+                newMessage.innerHTML = `
+                    <span class="sender">You:</span>
+                    <div class="message-body">${message}</div>
+                `;
+
+                // Append the new message to the chat window
+                chatWindow.appendChild(newMessage);
+
+                // Clear the message input field
+                messageInput.value = '';
+
+                // Scroll to the bottom of the chat window
+                chatWindow.scrollTop = chatWindow.scrollHeight;
+            }
+        }
+
+        // Add event listener to send button
+        sendButton.addEventListener('click', sendMessage);
+
+        // Add event listener to message input for pressing Enter key
+        messageInput.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault(); // Prevent form submission
+                sendMessage();
+            }
+        });
+
+        // Add your own implementation for receiving messages
+        // This could be done using WebSockets or AJAX requests to your Django backend
+    </script>
+</body>
+</html>

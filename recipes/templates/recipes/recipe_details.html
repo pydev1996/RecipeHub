@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Recipe Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        p {
+            margin-bottom: 10px;
+        }
+        .recipe-image {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .recipe-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+        .recipe-description {
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .recipe-audio {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .recipe-audio audio {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="recipe-image">
+            {% if recipe.image %}
+            <img src="{{ recipe.image.url }}" alt="Recipe Image">
+            {% else %}
+            <p>No image available</p>
+            {% endif %}
+        </div>
+
+        <h1>{{ recipe.recipe_name }}</h1>
+        <p><strong>Recipe By:</strong> {{ recipe.user }}</p>
+        <p><strong>Category:</strong> {{ recipe.category }}</p>
+        <div class="recipe-description">
+            <p><strong>Description:</strong> {{ recipe.description }}</p>
+        </div>
+        <div class="recipe-audio">
+            {% if recipe.audio %}
+            <audio controls>
+                <source src="{{ recipe.audio.url }}" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+            {% else %}
+            <p>No audio available</p>
+            {% endif %}
+        </div>
+        <div class="button-container">
+            <h2>Chat</h2>
+
+<div class="chat-window">
+    {% for message in chat_messages %}
+        <div class="message">
+            <span class="sender">{{ message.sender.username }}:</span>
+            <div class="message-body">{{ message.body }}</div>
+        </div>
+    {% endfor %}
+</div>
+
+<form method="POST" action="{% url 'recipes:send_chat_message' recipe.pk %}">
+    {% csrf_token %}
+    <input type="text" name="message" placeholder="Type your message">
+    <button type="submit">Send</button>
+</form>
+            <a href="{% url 'recipes:user_recipe_list' %}" class="back-button">Back to Recipe List</a>
+        </div>    </div>
+</body>
+</html>
