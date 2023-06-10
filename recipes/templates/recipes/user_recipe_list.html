@@ -90,6 +90,13 @@
                 border-top-left-radius: 5px;
                 border-top-right-radius: 5px;
             }
+            .username {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-weight: bold;
+            font-size: 16px;
+        }
         </style>
     </head>
 <body>
@@ -99,6 +106,9 @@
             <a href="{% url 'recipes:user_recipes' %}">My Recipes</a>
             <a href="{% url 'recipes:create_recipe' %}">Create recipe</a>
             <a href="{% url 'recipes:recipe_list' %}">Logout</a>
+        </div>
+        <div class="username">
+            Welcome, {{ request.user.username }}
         </div>
         <div class="search-form">
             <form action="{% url 'recipes:recipe_list' %}" method="GET">
