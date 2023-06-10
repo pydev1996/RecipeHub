@@ -72,24 +72,8 @@
             <p>No audio available</p>
             {% endif %}
         </div>
-        <div class="button-container">
-            <h2>Chat</h2>
+       
 
-<div class="chat-window">
-    {% for message in chat_messages %}
-        <div class="message">
-            <span class="sender">{{ message.sender.username }}:</span>
-            <div class="message-body">{{ message.body }}</div>
-        </div>
-    {% endfor %}
-</div>
-
-<form method="POST" action="{% url 'recipes:send_chat_message' recipe.pk %}">
-    {% csrf_token %}
-    <input type="text" name="message" placeholder="Type your message">
-    <button type="submit">Send</button>
-</form>
-            <a href="{% url 'recipes:user_recipe_list' %}" class="back-button">Back to Recipe List</a>
-        </div>    </div>
+  </div>
 </body>
 </html>
