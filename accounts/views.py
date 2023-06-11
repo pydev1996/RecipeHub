@@ -1,18 +1,37 @@
 # accounts/views.py
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm,PasswordResetForm
 from django.contrib.auth import login, logout
+
+# accounts/views.py
+from .forms import CustomUserCreationForm
+from django.contrib import messages
+
+# accounts/views.py
+
+def reset_password(request):
+    if request.method == 'POST':
+        form = PasswordResetForm(request.POST)
+        if form.is_valid():
+            form.save(request=request)
+            messages.success(request, 'Password reset link sent to your email')
+            return redirect('accounts:login')
+    else:
+        form = PasswordResetForm()
+    return render(request, 'accounts/reset_password.html', {'form': form})
+
 
 def register(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('recipes:login')
+            return redirect('accounts:login')
     else:
-        form = UserCreationForm()
+        form = CustomUserCreationForm()
     return render(request, 'accounts/register.html', {'form': form})
+
 
 def user_login(request):
     if request.method == 'POST':
