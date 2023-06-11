@@ -27,7 +27,9 @@ class Recipe(models.Model):
     image = models.ImageField(upload_to='images/', null=True, blank=True)
     audio = models.FileField(upload_to='audio/', null=True, blank=True)
     category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, default='veg')
+    likes = models.IntegerField(default=0)
 
 
     def __str__(self):
         return self.recipe_name
+

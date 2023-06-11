@@ -11,6 +11,6 @@ urlpatterns = [
     path('recipe/<int:pk>/', views.recipe_detail, name='recipe_detail'),
     path('chat/<int:user_id>/', views.chat_with_user, name='chat_with_user'),
     path('recipe/<int:pk>/chat/', views.send_chat_message, name='send_chat_message'),
-
-
+   path('like/<int:recipe_id>/', views.like_recipe, name='like_recipe'),
+   
 ]

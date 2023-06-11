@@ -123,6 +123,8 @@
                 <a href="{% url 'recipes:recipe_detail' recipe.id %}">
                     <img src="{{ recipe.image.url }}" alt="Recipe Image">
                     <p class="recipe-name">{{ recipe.recipe_name }}</p>
+                     <span class="love-icon" data-recipe-id="{{ recipe.id }}"><i class="fas fa-heart"></i></span>
+           
                 </a>
             </div>
             {% empty %}

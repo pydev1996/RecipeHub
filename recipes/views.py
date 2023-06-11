@@ -18,6 +18,42 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
+# views.py
+
+from django.shortcuts import get_object_or_404
+from django.http import JsonResponse
+
+
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
+from .models import Recipe
+
+@login_required
+def recipe_detail(request, pk):
+    recipe = get_object_or_404(Recipe, pk=pk)
+
+    context = {
+        'recipe': recipe,
+        'user': request.user,
+    }
+    return render(request, 'recipes/recipe_details.html', context)
+
+@login_required
+def like_recipe(request, recipe_id):
+    recipe = get_object_or_404(Recipe, id=recipe_id)
+    recipe.likes += 1
+    recipe.save()
+
+    response_data = {
+        'liked': True,
+        'likes_count': recipe.likes
+    }
+    return JsonResponse(response_data)
+
+
+
+
+
 @login_required
 def send_chat_message(request, pk):
     recipe = get_object_or_404(Recipe, pk=pk)
@@ -27,15 +63,15 @@ def send_chat_message(request, pk):
             ChatMessage.objects.create(sender=request.user, recipe=recipe, body=message_body)
     return HttpResponseRedirect(reverse('recipes:recipe_detail', args=[recipe.pk]))
 
-@login_required
-def recipe_detail(request, pk):
-    recipe = get_object_or_404(Recipe, pk=pk)
-    chat_messages = ChatMessage.objects.filter(recipe=recipe).order_by('timestamp')
-    context = {
-        'recipe': recipe,
-        'chat_messages': chat_messages,
-    }
-    return render(request, 'recipes/recipe_details.html', context)
+# @login_required
+# def recipe_detail(request, pk):
+#     recipe = get_object_or_404(Recipe, pk=pk)
+#     chat_messages = ChatMessage.objects.filter(recipe=recipe).order_by('timestamp')
+#     context = {
+#         'recipe': recipe,
+#         'chat_messages': chat_messages,
+#     }
+#     return render(request, 'recipes/recipe_details.html', context)
 
 
 # def recipe_detail(request, pk):
