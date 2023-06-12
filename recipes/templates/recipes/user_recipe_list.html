@@ -10,6 +10,14 @@
             color: #333333;
             background-color: #f5f5f5;
         }
+        .username {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
 
         .container {
             max-width: 900px;
@@ -25,6 +33,7 @@
             font-weight: bold;
             text-align: center;
             margin-bottom: 20px;
+            
         }
 
         .search-form {
@@ -86,6 +95,7 @@
         }
 
         .recipe-item {
+            position: relative;
             text-align: center;
             border: 1px solid #ccc;
             border-radius: 5px;
@@ -111,14 +121,24 @@
             border-top-right-radius: 5px;
         }
 
-        .username {
+        .likes-count {
             position: absolute;
-            top: 20px;
-            right: 20px;
-            font-weight: bold;
-            font-size: 16px;
+            bottom: 10px;
+            right: 10px;
+            display: flex;
+            align-items: center;
+            color: #070707;
+        }
+
+        .likes-count .count {
+            margin-right: 5px;
+        }
+
+        .likes-count .love-icon {
+            color: #f34848;
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
     <div class="container">
@@ -144,8 +164,11 @@
                 <a href="{% url 'recipes:recipe_detail' recipe.id %}">
                     <img src="{{ recipe.image.url }}" alt="Recipe Image">
                     <p class="recipe-name">{{ recipe.recipe_name }}</p>
-                     <span class="love-icon" data-recipe-id="{{ recipe.id }}"><i class="fas fa-heart"></i></span>
                 </a>
+                <div class="likes-count">
+                    <span class="count">{{ recipe.likes }}</span>
+                    <span class="love-icon"><i class="fas fa-heart"></i></span>
+                </div>
             </div>
             {% empty %}
             <p>No recipes found.</p>
