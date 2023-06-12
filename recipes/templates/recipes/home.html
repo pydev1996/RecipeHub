@@ -1,0 +1,106 @@
+<!-- templates/home.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Recipe Hub - Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #F2F3F5;
+            margin-bottom: 60px; /* Add margin for footer */
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .nav-menu {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .nav-menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .nav-menu ul li {
+            display: inline-block;
+            margin-right: 10px;
+        }
+        .nav-menu ul li a {
+            text-decoration: none;
+            color: #333;
+            padding: 10px 15px;
+            background-color: #eee;
+            border-radius: 5px;
+        }
+        .nav-menu ul li a:hover {
+            background-color: #22a5f1;
+            color: #fff;
+        }
+        .hero-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .hero-section h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .hero-section p {
+            font-size: 16px;
+            color: #777;
+            margin-bottom: 20px;
+        }
+        .hero-section .btn {
+            padding: 10px 20px;
+            background-color: #22a5f1;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .hero-section .btn:hover {
+            background-color: #1e90ff;
+        }
+        .footer {
+            background-color: #333333;
+            color: #ffffff;
+            padding: 10px;
+            text-align: center;
+            font-size: 14px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>RECIPE HUB</h1>
+        <div class="nav-menu">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="{% url 'recipes:recipe_list' %}">Recipes</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="{% url 'accounts:login' %}">Login/Signup</a></li>
+                <li><a href="{% url 'recipes:contact' %}">Contact</a></li>
+            </ul>
+        </div>
+        <div class="hero-section">
+            <h2>Welcome to Recipe Hub</h2>
+            <p>Discover a wide range of delicious recipes for every occasion.</p>
+            <a href="{% url 'recipes:recipe_list' %}" class="btn">Browse Recipes</a>
+        </div>
+        <div class="footer">
+            &copy; 2023 Recipe Hub | Author: Naveen Chikile
+        </div>
+    </div>
+</body>
+</html>

@@ -138,4 +138,19 @@ def chat_with_user(request, user_id):
     # Perform any necessary chat-related actions
 
     return render(request, 'recipes/chat.html', {'user': user})
+from django.shortcuts import render, redirect
+from .forms import ContactForm
 
+def contact(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('recipes:recipe_list')  # Redirect to a success page
+    else:
+        form = ContactForm()
+    return render(request, 'recipes/contact.html', {'form': form})
+
+
+def home(request):
+    return render(request, 'recipes/home.html')
