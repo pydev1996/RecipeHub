@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 
 from django.shortcuts import render, get_object_or_404
 from .models import Recipe
-# recipes/views.py
+from django.core.paginator import Paginator
 
 from .models import Recipe, ChatMessage
 # recipes/views.py
@@ -50,10 +50,6 @@ def like_recipe(request, recipe_id):
     }
     return JsonResponse(response_data)
 
-
-
-
-
 @login_required
 def send_chat_message(request, pk):
     recipe = get_object_or_404(Recipe, pk=pk)
@@ -63,21 +59,6 @@ def send_chat_message(request, pk):
             ChatMessage.objects.create(sender=request.user, recipe=recipe, body=message_body)
     return HttpResponseRedirect(reverse('recipes:recipe_detail', args=[recipe.pk]))
 
-# @login_required
-# def recipe_detail(request, pk):
-#     recipe = get_object_or_404(Recipe, pk=pk)
-#     chat_messages = ChatMessage.objects.filter(recipe=recipe).order_by('timestamp')
-#     context = {
-#         'recipe': recipe,
-#         'chat_messages': chat_messages,
-#     }
-#     return render(request, 'recipes/recipe_details.html', context)
-
-
-# def recipe_detail(request, pk):
-#     recipe = get_object_or_404(Recipe, pk=pk)
-    
-#     return render(request, 'recipes/recipe_details.html', {'recipe': recipe})
 
 @login_required
 def recipe_list(request):
@@ -87,8 +68,12 @@ def recipe_list(request):
     if query:
         recipes = recipes.filter(recipe_name__icontains=query)
 
+    paginator = Paginator(recipes, 8)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     context = {
-        'recipes': recipes
+        'recipes': page_obj
     }
     return render(request, 'recipes/recipe_list.html', context)
 @login_required
@@ -111,8 +96,12 @@ def user_recipe_list(request):
     if query:
         recipes = recipes.filter(recipe_name__icontains=query)
 
+    paginator = Paginator(recipes, 8)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     context = {
-        'recipes': recipes
+        'recipes': page_obj
     }
     return render(request, 'recipes/user_recipe_list.html', context)
 

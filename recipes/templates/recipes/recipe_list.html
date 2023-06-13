@@ -108,14 +108,14 @@
             position: absolute;
             bottom: 10px;
             right: 10px;
-            font-size: 14px;
+            font-size: 17px;
             color: #333;
         }
         .recipe-icon {
             position: absolute;
             bottom: 10px;
             right: 30px;
-            font-size: 14px;
+            font-size: 20px;
             color: #ff4136;
         }
         .hero-section {
@@ -295,6 +295,50 @@ img {vertical-align: middle;
         .banner-section .btn:hover {
         background-color: #1e90ff;
         }
+        .pagination {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .pagination .page-link {
+        display: inline-block;
+        padding: 5px 10px;
+        background-color: #eee;
+        color: #333;
+        border-radius: 5px;
+        text-decoration: none;
+        margin-right: 5px;
+    }
+
+    .pagination .page-link:hover {
+        background-color: #22a5f1;
+        color: #ffffff;
+    }
+
+    .pagination .page-link.active {
+        background-color: #22a5f1;
+        color: #ffffff;
+    }
+
+    .pagination-list {
+        display: inline-block;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .pagination-list li {
+        display: inline-block;
+    }
+    .recipe-bowl-icon {
+        display: inline-block;
+        width: 24px; /* Adjust the width and height as per your image dimensions */
+        height: 24px;
+        background-image: url('/static/recipes/images/foodbowl.png'); /* Update the path to your image file */
+        background-size: cover;
+        margin-right: 5px;
+    }
+
 
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
@@ -378,6 +422,21 @@ img {vertical-align: middle;
             {% empty %}
             <p>No recipes found.</p>
             {% endfor %}
+        </div>
+        <div class="pagination">
+            {% if recipes.has_other_pages %}
+            <ul class="pagination-list">
+                {% if recipes.has_previous %}
+                <li><a class="page-link" href="?page=1">&laquo;</a></li>
+                <li><a class="page-link" href="?page={{ recipes.previous_page_number }}">{{ recipes.previous_page_number }}</a></li>
+                {% endif %}
+                <li><a class="page-link active" href="?page={{ recipes.number }}">{{ recipes.number }}</a></li>
+                {% if recipes.has_next %}
+                <li><a class="page-link" href="?page={{ recipes.next_page_number }}">{{ recipes.next_page_number }}</a></li>
+                <li><a class="page-link" href="?page={{ recipes.paginator.num_pages }}">&raquo;</a></li>
+                {% endif %}
+            </ul>
+            {% endif %}
         </div>
         <div class="footer">
             &copy; 2023 Recipe Hub | Author: Naveen Chikile

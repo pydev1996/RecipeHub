@@ -115,6 +115,7 @@
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
         }
+        
 
         .recipe-item {
             position: relative;
@@ -153,11 +154,20 @@
         }
 
         .likes-count .count {
-            margin-right: 5px;
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 19px;
+            color: #333;
+        
         }
 
         .likes-count .love-icon {
-            color: #f34848;
+            position: absolute;
+            bottom: 10px;
+            right: 30px;
+            font-size: 20px;
+            color: #ff4136;
         }
         .footer {
             background-color: #333333;
@@ -167,9 +177,46 @@
             font-size: 14px;
             margin-top: 20px;
         }
+        .pagination {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .pagination .page-link {
+        display: inline-block;
+        padding: 5px 10px;
+        background-color: #eee;
+        color: #333;
+        border-radius: 5px;
+        text-decoration: none;
+        margin-right: 5px;
+    }
+
+    .pagination .page-link:hover {
+        background-color: #22a5f1;
+        color: #ffffff;
+    }
+
+    .pagination .page-link.active {
+        background-color: #22a5f1;
+        color: #ffffff;
+    }
+
+    .pagination-list {
+        display: inline-block;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .pagination-list li {
+        display: inline-block;
+    }
+    
         
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    
 </head>
 <body>
     <div class="container">
@@ -201,7 +248,9 @@
 
         <div class="recipe-list">
             {% for recipe in recipes %}
+            
             <div class="recipe-item">
+               
                 <a href="{% url 'recipes:recipe_detail' recipe.id %}">
                     <img src="{{ recipe.image.url }}" alt="Recipe Image">
                     <p class="recipe-name">{{ recipe.recipe_name }}</p>
@@ -211,10 +260,29 @@
                     <span class="love-icon"><i class="fas fa-heart"></i></span>
                 </div>
             </div>
+           
             {% empty %}
             <p>No recipes found.</p>
+           
             {% endfor %}
         </div>
+        <div class="pagination">
+            {% if recipes.has_other_pages %}
+            <ul class="pagination-list">
+                {% if recipes.has_previous %}
+                <li><a class="page-link" href="?page=1">&laquo;</a></li>
+                <li><a class="page-link" href="?page={{ recipes.previous_page_number }}">{{ recipes.previous_page_number }}</a></li>
+                {% endif %}
+                <li><a class="page-link active" href="?page={{ recipes.number }}">{{ recipes.number }}</a></li>
+                {% if recipes.has_next %}
+                <li><a class="page-link" href="?page={{ recipes.next_page_number }}">{{ recipes.next_page_number }}</a></li>
+                <li><a class="page-link" href="?page={{ recipes.paginator.num_pages }}">&raquo;</a></li>
+                {% endif %}
+            </ul>
+            {% endif %}
+        </div>
+
+
         <div class="footer">
             &copy; 2023 Recipe Hub | Created by Naveen Chikile
         </div>
