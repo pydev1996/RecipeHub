@@ -23,9 +23,10 @@
         }
         .search-form {
             text-align: center;
-            margin-bottom: 20px;
+            margin-top: 30px; /* Adjust the margin as needed */
             
-        }
+            }
+
         .search-form input[type="text"] {
             padding: 10px;
             width: 300px;
@@ -46,32 +47,35 @@
             background-color: #22a5f1;
         }
         .nav-menu {
-            text-align: center;
-            margin-bottom: 20px;
-            position: absolute;
-            top: 28px;
-            right: -3px;
-        }
-        .nav-menu ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        .nav-menu ul li {
-            display: inline-block;
-            margin-right: 10px;
-        }
-        .nav-menu ul li a {
-            text-decoration: none;
-            color: #333;
-            padding: 10px 15px;
-            background-color: #eee;
-            border-radius: 5px;
-        }
-        .nav-menu ul li a:hover {
-            background-color: #22a5f1;
-            color: #fff;
-        }
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.nav-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-menu ul li {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.nav-menu ul li a {
+  text-decoration: none;
+  color: #333;
+  padding: 10px 15px;
+  background-color: #f2f2f2;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.nav-menu ul li a:hover {
+  background-color: #22a5f1;
+  color: #ffffff;
+}
+
         .recipe-list {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -116,8 +120,9 @@
         }
         .hero-section {
             text-align: center;
-            margin-top: 100px; /* Adjust the margin as needed */
+            margin-top: 30px; /* Adjust the margin as needed */
             margin-bottom: 40px;
+           
             }
         .hero-section h2 {
             font-size: 24px;
@@ -142,11 +147,14 @@
             background-color: #1e90ff;
         }
         .mySlides {display: none}
-img {vertical-align: middle;}
+img {vertical-align: middle;
+    border-radius: 20px;
+    
+    }
 
 /* Slideshow container */
 .slideshow-container {
-  max-width: 700px;
+  max-width: 1000px;
   position: relative;
   margin: auto;
 }
@@ -247,11 +255,47 @@ img {vertical-align: middle;}
         }
         .logo {
         position: absolute;
-        top: 10px;
+        top: 6px;
         left: 10px;
         width: 200px; /* Adjust the width as needed */
         height: auto; /* Maintain aspect ratio */
     }
+    .banner-section {
+    background-color: #f2f2f2;
+    padding: 25px;
+    text-align: center;
+    margin-top: 50px; /* Adjust the margin as per your preference */
+    }
+
+        .banner-section h1 {
+        font-size: 36px;
+        margin-bottom: 20px;
+        color: #333333;
+       
+        font-family: "Arial", sans-serif; /* Specify the desired font family */
+        }
+
+        .banner-section p {
+        font-size: 18px;
+        color: #777777;
+        margin-bottom: 30px;
+        }
+
+        .banner-section .btn {
+        padding: 12px 24px;
+        background-color: #22a5f1;
+        color: #ffffff;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        }
+
+        .banner-section .btn:hover {
+        background-color: #1e90ff;
+        }
+
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
@@ -264,21 +308,26 @@ img {vertical-align: middle;}
     <div class="container">
         
         <img src="/static/recipes/images/recipehublogo.png" alt="Logo" class="logo">
-        
-        <div class="nav-menu">
-            <ul>
-                <li><a href="{% url 'recipes:recipe_list' %}">Home</a></li>
-                <li><a href="{% url 'accounts:login' %}">Login/Signup</a></li>
-                <li><a href="{% url 'recipes:contact' %}">Contact</a></li>
-            </ul>
-        </div>
         <div class="search-form">
             <form method="GET" action="{% url 'recipes:recipe_list' %}">
                 <input type="text" name="q" placeholder="Search recipes">
                 <button type="submit">Search</button>
             </form>
         </div>
-        <h1></h1>
+        <div class="banner-section">
+            <div class="nav-menu">
+              <ul>
+                <li><a href="{% url 'recipes:recipe_list' %}">Home</a></li>
+                <li><a href="{% url 'accounts:login' %}">Login/Signup</a></li>
+                <li><a href="{% url 'recipes:contact' %}">Contact</a></li>
+              </ul>
+            </div>
+            <h1>Welcome to Recipe Hub</h1>
+            <p>Discover a wide range of delicious recipes for every occasion.</p>
+          </div>
+          
+       
+        
         <div class="hero-section">
             <div class="slideshow-container">
 
@@ -314,9 +363,7 @@ img {vertical-align: middle;}
                 </div>
          
           
-            <h2>Welcome to Recipe Hub</h2>
-            <p>Discover a wide range of delicious recipes for every occasion.</p>
-           
+          
         </div>
         <div class="recipe-list">
             {% for recipe in recipes %}
