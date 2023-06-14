@@ -25,9 +25,11 @@ class Recipe(models.Model):
     ingredients = models.TextField()
     description = models.TextField()
     image = models.ImageField(upload_to='images/', null=True, blank=True)
-    audio = models.FileField(upload_to='audio/', null=True, blank=True)
+    #audio = models.FileField(upload_to='audio/', null=True, blank=True)
     category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, default='veg')
     likes = models.IntegerField(default=0)
+    youtube_links = models.URLField(default='https://www.youtube.com/', max_length=200)
+
 
 
     def __str__(self):

@@ -51,7 +51,7 @@
             top:30px;
         }
         .like-button {
-            
+
             position:absolute;
             top:50px;
             display: inline-block;
@@ -61,12 +61,12 @@
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s ease;
-            
-            
 
-            
-            
-            
+
+
+
+
+
         }
         .like-button i {
             margin-right: 0px;
@@ -80,9 +80,21 @@
 #heart:hover{
     color:red;
 }
+.recipe-ingredients {
+            margin-bottom: 20px;
+        }
+
+        .recipe-ingredients ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+
+        .recipe-ingredients li {
+            margin-bottom: 5px;
+        }
     </style>
     <script src="https://kit.fontawesome.com/3929e16ef5.js" crossorigin="anonymous"></script>
-    
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         // Get the CSRF token from the cookie
@@ -137,17 +149,27 @@
 </head>
 <body>
     <div class="container">
-       
+
         <div class="recipe-image">
             <img src="{{ recipe.image.url }}" alt="Recipe Image">
         </div>
-        
+
         <h1>{{ recipe.recipe_name }}</h1>
         <p><strong>Recipe By:</strong> {{ recipe.user }}</p>
-        <p><strong>Category:</strong> {{ recipe.category }}</p>
+        <p><strong>category:</strong>{{ recipe.category }}</p>
+       
+        <p><strong>Ingredients:</strong> {{ recipe.ingredients }}</p>
         <div class="recipe-description">
             <p><strong>Description:</strong> {{ recipe.description }}</p>
         </div>
+        <div>
+            {% if youtube_link %} 
+            <iframe width="560" height="315" src="{{youtube_link}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            {% else %}
+            <p>Youtube video not found</p>
+            {% endif %}
+        </div>
+            
         <div class="recipe-audio">
             {% if recipe.audio %}
             <audio controls>
@@ -166,7 +188,7 @@
             {% else %}
             <i id="heart" class="far fa-heart"></i>
             {% endif %}
-            
+
         </button>
         {% endif %}
     </div>

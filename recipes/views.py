@@ -31,11 +31,20 @@ from .models import Recipe
 @login_required
 def recipe_detail(request, pk):
     recipe = get_object_or_404(Recipe, pk=pk)
+    youtube_link = None
+
+    if recipe.youtube_links:
+        video_id = recipe.youtube_links.split('=')[-1]
+        youtube_link = f"https://www.youtube.com/embed/{video_id}"
+    if recipe.youtube_links=='https://www.youtube.com/':
+        youtube_link=False
 
     context = {
         'recipe': recipe,
         'user': request.user,
+        'youtube_link': youtube_link,
     }
+    print(context)
     return render(request, 'recipes/recipe_details.html', context)
 
 @login_required
