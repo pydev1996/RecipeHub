@@ -68,12 +68,10 @@ def recipe_list(request):
     if query:
         recipes = recipes.filter(recipe_name__icontains=query)
 
-    paginator = Paginator(recipes, 8)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
+    
 
     context = {
-        'recipes': page_obj
+        'recipes': recipes
     }
     return render(request, 'recipes/recipe_list.html', context)
 @login_required
