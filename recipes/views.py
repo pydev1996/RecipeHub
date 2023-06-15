@@ -32,7 +32,8 @@ from .models import Recipe
 def recipe_detail(request, pk):
     recipe = get_object_or_404(Recipe, pk=pk)
     youtube_link = None
-
+    ingredients_list = recipe.ingredients.split('\n')
+    description_steps = recipe.description.split('\n')
     if recipe.youtube_links:
         video_id = recipe.youtube_links.split('=')[-1]
         youtube_link = f"https://www.youtube.com/embed/{video_id}"
@@ -43,8 +44,10 @@ def recipe_detail(request, pk):
         'recipe': recipe,
         'user': request.user,
         'youtube_link': youtube_link,
+        'ingredients_list': ingredients_list,
+        'description_steps': description_steps,
     }
-    print(context)
+    print(recipe.ingredients.split("\r"))
     return render(request, 'recipes/recipe_details.html', context)
 
 @login_required

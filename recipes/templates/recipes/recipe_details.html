@@ -2,9 +2,10 @@
 <html>
 <head>
     <title>Recipe Details</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: "Trirong", serif;
             background-color: #F2F3F5;
         }
         .container {
@@ -17,6 +18,7 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
         h1 {
+            
             text-align: center;
             margin-bottom: 20px;
         }
@@ -33,10 +35,11 @@
             border-radius: 5px;
         }
         .recipe-description {
-            background-color: #f5f5f5;
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 20px;
+                background-color: #e7e5e5;  
+                font-family: "Trirong", serif;
+                font-size: 16px;
+                
+                color: #333333;
         }
         .recipe-audio {
             text-align: center;
@@ -158,9 +161,21 @@
         <p><strong>Recipe By:</strong> {{ recipe.user }}</p>
         <p><strong>category:</strong>{{ recipe.category }}</p>
        
-        <p><strong>Ingredients:</strong> {{ recipe.ingredients }}</p>
+        <h4>Ingredients:</h4>
+                <ul>
+                {% for ingredient in ingredients_list %}
+                    <li>{{ ingredient }}</li>
+                {% endfor %}
+                </ul>
+
+        <p><strong>Process Time:</strong> {{ recipe.processtime }} mins</p>
         <div class="recipe-description">
-            <p><strong>Description:</strong> {{ recipe.description }}</p>
+            <h3>Description:</h3>
+                <ol>
+                {% for step in description_steps %}
+                    <li>{{ step }}</li>
+                {% endfor %}
+                </ol>
         </div>
         <div>
             {% if youtube_link %} 

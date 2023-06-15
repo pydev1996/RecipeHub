@@ -60,6 +60,14 @@
         button[type="submit"]:hover {
             background-color: #45a049;
         }
+        .msg{
+            color:red;
+            font-size: 12px;
+        }
+        .ing{
+            color:red;
+            font-size: 12px;
+        }
     </style>
 </head>
 <body>
@@ -69,18 +77,24 @@
         <label for="{{ form.recipe_name.id_for_label }}">Recipe Name:</label>
         {{ form.recipe_name }}
         <br><br>
-        <label for="{{ form.ingredients.id_for_label }}">Ingredients:</label>
+        <label for="{{ form.ingredients.id_for_label }}">Ingredients:<h2 class="ing">Add Ingredients one by one list</h2></label>
         {{ form.ingredients }}
         <br><br>
         <label for="{{ form.description.id_for_label }}">Description:</label>
         {{ form.description }}
         <br><br>
+        <label for="{{ form.processtime.id_for_label }}">Processtime: in Minutes</label>
+        {{ form.processtime }}
+        <br><br>
         <label for="{{ form.image.id_for_label }}">Recipe Image:</label>
         {{ form.image }}
         <br><br>
-        <label for="{{ form.audio.id_for_label }}">youtube link:</label>
+        <label for="{{ form.audio.id_for_label }}">Audio Description:</label>
+        {{ form.audio }}
+        <p class="msg">Add recipe procedure audio here, if you have</p>
+        <label for="{{ form.youtube_links.id_for_label }}">youtube link:</label>
         {{ form.youtube_links }}
-        <br><br>
+        <p class="msg">Add youtube video link here, if you have</p>
         <label for="{{ form.category.id_for_label }}">Category:</label>
         {{ form.category }}
         <br><br>

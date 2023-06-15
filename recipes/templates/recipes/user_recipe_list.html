@@ -1,16 +1,51 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Recipe List</title>
+    <title>Recipe Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <style>
+        
         body {
-            font-family: "Arial", sans-serif;
+            font-family:"Candara";
             font-size: 16px;
             line-height: 1.5;
             color: #333333;
             background-color: #F2F3F5;
         }
-        .username {
+
+        .navbar {
+            width: 100%;
+            background-color: #555;
+            overflow: auto;
+            }
+
+            .navbar a {
+            float: right;
+            padding: 12px;
+            color: white;
+            text-decoration: none;
+            font-size: 17px;
+            }
+
+            .navbar a:hover {
+            background-color: #000;
+            }
+
+            .active {
+            background-color: #0423aa;
+            }
+
+            @media screen and (max-width: 500px) {
+            .navbar a {
+                float: none;
+                display: block;
+            }
+            }
+                    .username {
+            font-family: "Copperplate";
             position: absolute;
             top: 20px;
             right: 20px;
@@ -82,6 +117,7 @@
         }
 
         .nav-menu {
+            font-family: "Lucida Bright";
             text-align: center;
             margin-top: 20px;
         }
@@ -216,7 +252,8 @@
         
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
 </head>
 <body>
     <div class="container">
@@ -233,12 +270,11 @@
             </form>
         </div>
         <div class="banner">
-        <div class="nav-menu">
-            <ul>
-                <li><a href="{% url 'recipes:user_recipes' %}">My Recipes</a></li>
-                <li><a href="{% url 'recipes:create_recipe' %}">Create recipe</a></li>
-                <li><a href="{% url 'recipes:recipe_list' %}">Logout</a></li>
-            </ul>
+        <div class="navbar">
+            <a href="{% url 'recipes:recipe_list' %}"><i class="fa fa-sign-out"></i>Logout</a>
+            <a href="{% url 'recipes:create_recipe' %}"><i class="fa fa-fw fa-plus"></i> Create recipe</a> 
+             <a class="active" href="{% url 'recipes:user_recipes' %}"><i class="fas fa-hamburger"></i> My Recipes </a>
+            
         </div>
     </div>
         <div class="username">
