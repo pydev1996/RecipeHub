@@ -76,6 +76,18 @@ def send_chat_message(request, pk):
 def recipe_list(request):
     query = request.GET.get('q')
     recipes = Recipe.objects.all()
+    #categories = Recipe.objects.values_list('category', flat=True).distinct()
+    categories=('veg', 'non_veg', 'breakfast', 'snacks', 'rice',)
+    print(categories)
+    
+    # Get selected category from the request parameters
+    selected_category = request.GET.get('category')
+    
+    # Filter recipes based on the selected category
+    if selected_category:
+        recipes = Recipe.objects.filter(category=selected_category)
+    else:
+        recipes = Recipe.objects.all()
 
     if query:
         recipes = recipes.filter(recipe_name__icontains=query)
@@ -85,7 +97,9 @@ def recipe_list(request):
     page_obj = paginator.get_page(page_number)
 
     context = {
-        'recipes': page_obj
+        'recipes': recipes,
+        'categories': categories,
+        'selected_category': selected_category,
     }
     return render(request, 'recipes/recipe_list.html', context)
 @login_required

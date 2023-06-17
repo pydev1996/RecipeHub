@@ -77,6 +77,9 @@
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
         }
+        .recipe-item:hover{
+          box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+        }
         .recipe-item {
             text-align: center;
             border: 1px solid #ccc;
@@ -371,6 +374,53 @@ img {vertical-align: middle;
           display: block;
         }
       }
+      .category-buttons {
+  text-align: center;
+}
+
+.category-buttons h3 {
+  margin-bottom: 10px;
+}
+.btn {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #e9e9e9;;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width:100%;
+        }
+
+        .btn a {
+            color: #030303;
+            text-decoration: none;
+            font-size: 17px;
+            padding: 12px;
+            margin: 0 10px;
+            transition: 0.3s;
+            text-align: center;
+        }
+
+        .btn a:hover {
+            background-color: #ddd;
+        }
+
+        .btn .active {
+            background-color: #2196F3;
+            color:white;
+        }
+
+        .btn .fa {
+            margin-right: 5px;
+        }      @media screen and (max-width: 500px) {
+        .btn a {
+          float: none;
+          display: block;
+        }
+      }
+
+
+
 
 
     </style>
@@ -444,7 +494,19 @@ img {vertical-align: middle;
           
           
         </div>
+          <!-- Category buttons -->
+          <div class="category-buttons">
+            <h3>Filter by Category:</h3>
+            <div class="btn">
+              <a class="active" href="{% url 'recipes:recipe_list' %}">All</a>
+              {% for category in categories %}
+                  <a href="{% url 'recipes:recipe_list' %}?category={{ category }}">{{ category }}</a>
+              {% endfor %}
+            </div>
+            <!-- Add more category buttons as needed -->
+        </div>
         <div class="recipe-list">
+          {% if recipes %}
             {% for recipe in recipes %}
             <div class="recipe-item">
                 <a href="{% url 'recipes:recipe_detail' recipe.id %}">
@@ -457,6 +519,9 @@ img {vertical-align: middle;
             {% empty %}
             <p>No recipes found.</p>
             {% endfor %}
+            {% else %}
+            <p>No recipes found.</p>
+        {% endif %}
         </div>
         <div class="pagination">
             {% if recipes.has_other_pages %}
@@ -500,5 +565,6 @@ img {vertical-align: middle;
           setTimeout(showSlides, 5000); // Change slide every 2 seconds (2000 milliseconds)
         }
       </script>
+      
               </body>
 </html>
