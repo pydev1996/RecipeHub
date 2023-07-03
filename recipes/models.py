@@ -14,10 +14,10 @@ class ChatMessage(models.Model):
 class Recipe(models.Model):
     CATEGORY_CHOICES = [
         ('veg', 'Vegetarian'),
-        ('non_veg', 'Non-Vegetarian'),
-        ('breakfast', 'Breakfast'),
-        ('snacks', 'Snacks'),
-        ('rice', 'Rice'),
+        ('Non-veg', 'Non-Vegetarian'),
+        ('Breakfast', 'Breakfast'),
+        ('Snacks', 'Snacks'),
+        ('Rice', 'Rice'),
     ]
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)

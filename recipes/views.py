@@ -77,7 +77,7 @@ def recipe_list(request):
     query = request.GET.get('q')
     recipes = Recipe.objects.all()
     #categories = Recipe.objects.values_list('category', flat=True).distinct()
-    categories=('veg', 'non_veg', 'breakfast', 'snacks', 'rice')
+    categories=('Veg', 'Non Veg', 'Breakfast', 'Snacks', 'Rice')
     print(categories)
     
     # Get selected category from the request parameters
