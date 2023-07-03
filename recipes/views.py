@@ -72,12 +72,12 @@ def send_chat_message(request, pk):
     return HttpResponseRedirect(reverse('recipes:recipe_detail', args=[recipe.pk]))
 
 
-@login_required
+#@login_required
 def recipe_list(request):
     query = request.GET.get('q')
     recipes = Recipe.objects.all()
     #categories = Recipe.objects.values_list('category', flat=True).distinct()
-    categories=('veg', 'non_veg', 'breakfast', 'snacks', 'rice',)
+    categories=('veg', 'non_veg', 'breakfast', 'snacks', 'rice')
     print(categories)
     
     # Get selected category from the request parameters
